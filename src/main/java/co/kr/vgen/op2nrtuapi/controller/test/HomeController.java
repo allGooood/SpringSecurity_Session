@@ -1,5 +1,7 @@
-package co.kr.vgen.op2nrtuapi.controller;
+package co.kr.vgen.op2nrtuapi.controller.test;
 
+import co.kr.vgen.op2nrtuapi.controller.common.Response;
+import co.kr.vgen.op2nrtuapi.controller.test.dto.BooleanResultDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,9 @@ public class HomeController {
     }
 
     @GetMapping("/hey")
-    public ResponseEntity<String> hey(){
-        System.out.println("----------------------HEY");
-        return ResponseEntity.status(HttpStatus.OK).body("hey");
+    public Response<BooleanResultDto> hey(){
+        return Response.ok(BooleanResultDto.builder()
+                .result(true)
+                .build());
     }
 }

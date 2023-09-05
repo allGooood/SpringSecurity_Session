@@ -1,4 +1,4 @@
-package co.kr.vgen.op2nrtuapi.controller;
+package co.kr.vgen.op2nrtuapi.controller.test;
 
 import co.kr.vgen.op2nrtuapi.service.LoginService;
 import lombok.RequiredArgsConstructor;

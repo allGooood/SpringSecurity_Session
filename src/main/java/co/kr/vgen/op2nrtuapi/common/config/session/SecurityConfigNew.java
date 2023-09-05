@@ -1,7 +1,7 @@
-package co.kr.vgen.op2nrtuapi.common.config;
+package co.kr.vgen.op2nrtuapi.common.config.session;
 
-import co.kr.vgen.op2nrtuapi.common.config.handler.LoginFailureHandler;
-import co.kr.vgen.op2nrtuapi.common.config.handler.LoginSuccessHandler;
+import co.kr.vgen.op2nrtuapi.common.config.session.handler.LoginFailureHandler;
+import co.kr.vgen.op2nrtuapi.common.config.session.handler.LoginSuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +11,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,8 +25,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Slf4j
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 @RequiredArgsConstructor
+//@EnableGlobalMethodSecurity(prePostEnabled = true) // 사용하지 맙시다
 public class SecurityConfigNew {
 //    private final RtuAuthenticationEntryPoint entryPoint;
 //    private final RtuAccessDeniedHandler accessDeniedHandler;
@@ -48,6 +50,11 @@ public class SecurityConfigNew {
         //cross site request forgery disable
         http.csrf().disable();
 
+        //세션이 필요한 경우 생성
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jsonUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //인증(정체 확인) 예외처리, 인가(자원 접근) 예외처리 등록
 //        http.exceptionHandling()
@@ -55,17 +62,9 @@ public class SecurityConfigNew {
 //                .accessDeniedHandler(accessDeniedHandler);
 
         http.authorizeRequests()
-//                .antMatchers("/login").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/hey").authenticated()
                 .anyRequest().permitAll();
-
-        //JWT 필터를 적용
-        http.addFilterBefore(jsonUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        //세션이 필요한 경우 생성
-//        http.sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-
 
         return http.build();
     }

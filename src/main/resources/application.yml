@@ -1,0 +1,7 @@
+server:
+  port: 80
+
+jwt:
+  secret: dmdlbl9zZWNyZXRfMDIwMV92Z2VuX3NlY3JldF8wMjAxdmdlbl9zZWNyZXRfMDIwMV92Z2VuX3NlY3JldF8wMjAxdmdlbl9zZWNyZXRfMDIwMV92Z2VuX3NlY3JldF8wMjAx
+  valid-seconds: 300
+  refresh-seconds: 1800

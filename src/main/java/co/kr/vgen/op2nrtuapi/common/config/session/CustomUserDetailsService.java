@@ -1,4 +1,4 @@
-package co.kr.vgen.op2nrtuapi.common.config;
+package co.kr.vgen.op2nrtuapi.common.config.session;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

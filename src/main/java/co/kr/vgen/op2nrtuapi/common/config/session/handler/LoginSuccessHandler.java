@@ -1,4 +1,4 @@
-package co.kr.vgen.op2nrtuapi.common.config.handler;
+package co.kr.vgen.op2nrtuapi.common.config.session.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

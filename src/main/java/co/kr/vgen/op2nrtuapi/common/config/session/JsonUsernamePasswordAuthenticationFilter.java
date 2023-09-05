@@ -1,12 +1,10 @@
-package co.kr.vgen.op2nrtuapi.common.config;
+package co.kr.vgen.op2nrtuapi.common.config.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -23,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 //@Component
-//@RequiredArgsConstructor
 public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private static final String DEFAULT_LOGIN_REQUEST_URL = "/login";  // /login/oauth2/ + ????? 로 오는 요청을 처리할 것이다
     private static final String HTTP_METHOD = "POST";    //HTTP 메서드의 방식은 POST 이다.
@@ -64,11 +61,11 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
         authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
     }
 
-    @Data
-    private static class LoginDto {
-        String username;
-        String password;
-    }
+//    @Data
+//    private static class LoginDto {
+//        String username;
+//        String password;
+//    }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
